@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "909132068681",
+    "project_id": "apptransito-443a8",
+    "storage_bucket": "apptransito-443a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909132068681:android:afa794fc75e29dd8068c98",
+        "android_client_info": {
+          "package_name": "com.example.app_transito"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhZ8I-vpjcE9zgS66GyLg_bqems4ZJI20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
