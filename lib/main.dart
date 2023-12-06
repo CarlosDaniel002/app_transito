@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(0, 178, 227,0)),
       ),
-      initialRoute: '/home',
+      initialRoute: '/Login',
       routes: {
         '/home':(context) => const Home(),
         '/Login':(context) => const login(),

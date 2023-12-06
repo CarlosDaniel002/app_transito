@@ -10,6 +10,10 @@ class MapaMulta extends StatefulWidget {
 class _MapaMultaState extends State<MapaMulta> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Mapa de Multas'),
+      ),
+    );
   }
 }

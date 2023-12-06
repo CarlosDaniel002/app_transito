@@ -10,6 +10,10 @@ class AplicarMulta extends StatefulWidget {
 class _AplicarMultaState extends State<AplicarMulta> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Aplicar Multa'),
+      ),
+    );
   }
 }

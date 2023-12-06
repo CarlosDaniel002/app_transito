@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    String? _email = _auth.currentUser!.email;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('App agente de tránsito de RD'),
       ),
-      body: const Center(
-        child: Text('App agente de tránsito de RD'),
+      body:  Center(
+        child: Text("Bienvenido: ${_email!}"),
       ),
       drawer: Drawer(
         child: ListView(
@@ -67,6 +71,13 @@ class Home extends StatelessWidget {
               title: const Text('Horoscopo'),
               onTap: () {
                 Navigator.of(context).pushNamed('/Horoscopo');
+              },
+            ),
+            ListTile(
+              title: const Text('Sign out'),
+              onTap: () {
+                _auth.signOut();
+                Navigator.of(context).pushNamed('/Login');
               },
             )
           ],

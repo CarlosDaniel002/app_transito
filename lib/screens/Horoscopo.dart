@@ -10,6 +10,10 @@ class Horoscopo extends StatefulWidget {
 class _HoroscopoState extends State<Horoscopo> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Horoscopo'),
+      ),
+    );
   }
 }

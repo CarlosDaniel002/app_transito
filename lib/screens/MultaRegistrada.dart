@@ -10,6 +10,10 @@ class MultaRegistrada extends StatefulWidget {
 class _MultaRegistradaState extends State<MultaRegistrada> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Multa registrada'),
+      ),
+    );
   }
 }

@@ -10,6 +10,10 @@ class Clima extends StatefulWidget {
 class _ClimaState extends State<Clima> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Clima'),
+      ),
+    );
   }
 }

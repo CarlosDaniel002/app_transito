@@ -10,6 +10,10 @@ class ConsultaConductor extends StatefulWidget {
 class _ConsultaConductorState extends State<ConsultaConductor> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Consulta de Conductor'),
+      ),
+    );
   }
 }

@@ -9,6 +9,10 @@ class TraficoDeMulta extends StatefulWidget {
 class _TraficoDeMultaState extends State<TraficoDeMulta> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tráfico de multa'),
+      ),
+    );
   }
 }
