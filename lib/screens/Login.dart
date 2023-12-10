@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, unnecessary_import, camel_case_types, prefer_final_fields, avoid_print, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
@@ -81,7 +83,7 @@ class _loginState extends State<login> {
                   }
                   }, child: const Text("Login")),
                   const SizedBox(height: 20),
-                  Text('¿No tienes una cuenta? registrate aquí'),
+                  const Text('¿No tienes una cuenta? registrate aquí'),
                   const SizedBox(height: 20),
                   ElevatedButton(onPressed: (){
                     Navigator.of(context).pushNamed('/Register');

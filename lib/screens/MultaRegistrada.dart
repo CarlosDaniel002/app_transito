@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors, library_private_types_in_public_api, prefer_final_fields, unused_field
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,28 +25,28 @@ class _MultaRegistradaState extends State<MultaRegistrada> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Multa Registrada'),
+        title: const Text('Multa Registrada'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Registrar Multa',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             TextFormField(
               controller: _descripcionController,
-              decoration: InputDecoration(labelText: 'Descripción'),
+              decoration: const InputDecoration(labelText: 'Descripción'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _registrarMulta,
-              child: Text('Registrar Multa'),
+              child: const Text('Registrar Multa'),
             ),
-            SizedBox(height: 32),
-            Text(
+            const SizedBox(height: 32),
+            const Text(
               'Multas Registradas',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -53,7 +55,7 @@ class _MultaRegistradaState extends State<MultaRegistrada> {
                 future: _obtenerMultas(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
@@ -65,7 +67,7 @@ class _MultaRegistradaState extends State<MultaRegistrada> {
                           title: Text(multas[index].descripcion),
                           subtitle: Text(
                             'Fecha: ${multas[index].fecha}',
-                            style: TextStyle(color: Colors.grey),
+                            style: const TextStyle(color: Colors.grey),
                           ),
                           onTap: () {
                             _mostrarDetallesMulta(multas[index]);
@@ -77,12 +79,12 @@ class _MultaRegistradaState extends State<MultaRegistrada> {
                 },
               ),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Mapa de Multas',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            Container(
+            SizedBox(
               height: 200,
               child: FlutterMap(
                 mapController: _mapController,
@@ -145,7 +147,7 @@ class _MultaRegistradaState extends State<MultaRegistrada> {
             height: 40.0,
             point: latLng,
             builder: (context) => IconButton(
-              icon: Icon(Icons.location_on),
+              icon: const Icon(Icons.location_on),
               onPressed: () {
                 _mostrarDetallesMulta(Multa(
                   id: doc.id,
@@ -191,7 +193,7 @@ class _MultaRegistradaState extends State<MultaRegistrada> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Detalles de la Multa'),
+          title: const Text('Detalles de la Multa'),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -206,7 +208,7 @@ class _MultaRegistradaState extends State<MultaRegistrada> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cerrar'),
+              child: const Text('Cerrar'),
             ),
           ],
         );

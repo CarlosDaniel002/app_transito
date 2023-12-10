@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors, duplicate_import
+
+import 'package:app_transito/screens/Agregarconductor.dart';
 import 'package:flutter/material.dart';
 import 'package:app_transito/screens/Login.dart';
 import 'package:app_transito/screens/Register.dart';
@@ -11,6 +14,7 @@ import 'package:app_transito/screens/MapaMulta.dart';
 import 'package:app_transito/screens/Noticias.dart';
 import 'package:app_transito/screens/Clima.dart';
 import 'package:app_transito/screens/Horoscopo.dart';
+import 'package:app_transito/screens/Agregarconductor.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -50,10 +54,10 @@ class _MyAppState extends State<MyApp> {
         '/MapaMulta':(context) => const MapaMulta(),
         '/Noticias':(context) => const Noticias(),
         '/Clima':(context) => const Clima(),
-        '/Horoscopo':(context) => const Horoscopo()
+        '/Horoscopo':(context) => const Horoscopo(),
+        '/AgregadorConductor':(context) => AgregadorConductor()
       },
     );
   }
 }
-
 

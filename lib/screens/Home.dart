@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -71,6 +73,13 @@ class Home extends StatelessWidget {
               title: const Text('Horoscopo'),
               onTap: () {
                 Navigator.of(context).pushNamed('/Horoscopo');
+              },
+            ),
+
+            ListTile(
+              title: const Text('Agregar Conductor'),
+              onTap: () {
+                Navigator.of(context).pushNamed('/AgregadorConductor');
               },
             ),
             ListTile(

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class Clima extends StatefulWidget {
@@ -17,3 +19,4 @@ class _ClimaState extends State<Clima> {
     );
   }
 }
+

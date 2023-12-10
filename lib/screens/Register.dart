@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_final_fields, use_build_context_synchronously, avoid_print, unnecessary_import
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
