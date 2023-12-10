@@ -1,19 +1,248 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MultaRegistrada extends StatefulWidget {
-  const MultaRegistrada({super.key});
-
   @override
-  State<MultaRegistrada> createState() => _MultaRegistradaState();
+  _MultaRegistradaState createState() => _MultaRegistradaState();
 }
 
 class _MultaRegistradaState extends State<MultaRegistrada> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final Geolocator _geolocator = Geolocator();
+
+  MapController _mapController = MapController();
+  List<Marker> _markers = [];
+  final TextEditingController _descripcionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Multa registrada'),
+        title: Text('Multa Registrada'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Registrar Multa',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            TextFormField(
+              controller: _descripcionController,
+              decoration: InputDecoration(labelText: 'Descripción'),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _registrarMulta,
+              child: Text('Registrar Multa'),
+            ),
+            SizedBox(height: 32),
+            Text(
+              'Multas Registradas',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            Expanded(
+              child: FutureBuilder(
+                future: _obtenerMultas(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    List<Multa> multas = snapshot.data as List<Multa>;
+                    return ListView.builder(
+                      itemCount: multas.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(multas[index].descripcion),
+                          subtitle: Text(
+                            'Fecha: ${multas[index].fecha}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          onTap: () {
+                            _mostrarDetallesMulta(multas[index]);
+                          },
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Mapa de Multas',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            Container(
+              height: 200,
+              child: FlutterMap(
+                mapController: _mapController,
+                options: MapOptions(
+                  center: LatLng(37.7749, -122.4194),
+                  zoom: 12,
+                ),
+                layers: [
+                  TileLayerOptions(
+                    urlTemplate:
+                        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    subdomains: ['a', 'b', 'c'],
+                  ),
+                  MarkerLayerOptions(
+                    markers: _markers,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
+
+  Future<void> _registrarMulta() async {
+    Position position = await Geolocator.getCurrentPosition();
+    Multa nuevaMulta = Multa(
+      id: '',
+      descripcion: _descripcionController.text,
+      fecha: DateTime.now(),
+      latitude: position.latitude,
+      longitude: position.longitude,
+    );
+
+    await _registrarMultaFirestore(nuevaMulta);
+    _descripcionController.clear();
+    _cargarMultas();
+  }
+
+  Future<void> _cargarMultas() async {
+    final User? user = _auth.currentUser;
+
+    if (user != null) {
+      final QuerySnapshot multasSnapshot = await _firestore
+          .collection('multas')
+          .where('agenteId', isEqualTo: user.uid)
+          .get();
+
+      setState(() {
+        _markers = multasSnapshot.docs.map((doc) {
+          final multa = doc.data() as Map<String, dynamic>;
+          final LatLng latLng = LatLng(
+            multa['ubicacion']['latitude'],
+            multa['ubicacion']['longitude'],
+          );
+
+          return Marker(
+            width: 40.0,
+            height: 40.0,
+            point: latLng,
+            builder: (context) => IconButton(
+              icon: Icon(Icons.location_on),
+              onPressed: () {
+                _mostrarDetallesMulta(Multa(
+                  id: doc.id,
+                  descripcion: multa['descripcion'],
+                  fecha: (multa['fecha'] as Timestamp).toDate(),
+                  latitude: multa['ubicacion']['latitude'],
+                  longitude: multa['ubicacion']['longitude'],
+                ));
+              },
+            ),
+          );
+        }).toList();
+      });
+    }
+  }
+
+  Future<List<Multa>> _obtenerMultas() async {
+    final User? user = _auth.currentUser;
+
+    if (user != null) {
+      final QuerySnapshot multasSnapshot = await _firestore
+          .collection('multas')
+          .where('agenteId', isEqualTo: user.uid)
+          .get();
+
+      return multasSnapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        return Multa(
+          id: doc.id,
+          descripcion: data['descripcion'],
+          fecha: (data['fecha'] as Timestamp).toDate(),
+          latitude: data['ubicacion']['latitude'],
+          longitude: data['ubicacion']['longitude'],
+        );
+      }).toList();
+    }
+
+    return [];
+  }
+
+  void _mostrarDetallesMulta(Multa multa) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Detalles de la Multa'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Descripción: ${multa.descripcion}'),
+              Text('Fecha: ${multa.fecha}'),
+              Text('Latitud: ${multa.latitude}'),
+              Text('Longitud: ${multa.longitude}'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cerrar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _registrarMultaFirestore(Multa multa) async {
+    final User? user = _auth.currentUser;
+
+    if (user != null) {
+      await _firestore.collection('multas').add({
+        'descripcion': multa.descripcion,
+        'fecha': multa.fecha,
+        'ubicacion': {
+          'latitude': multa.latitude,
+          'longitude': multa.longitude,
+        },
+        'agenteId': user.uid,
+      });
+    }
+  }
+}
+
+class Multa {
+  String id;
+  String descripcion;
+  DateTime fecha;
+  double latitude;
+  double longitude;
+
+  Multa({
+    required this.id,
+    required this.descripcion,
+    required this.fecha,
+    required this.latitude,
+    required this.longitude,
+  });
 }

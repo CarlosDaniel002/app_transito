@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         '/ConsultaVehiculo': (context) => const ConsultaVehiculo(),
         '/ConsultaConductor': (context) => const ConsultaConductor(),
         '/AplicarMulta':(context) => const AplicarMulta(),
-        '/MultaRegistrada':(context) => const MultaRegistrada(),
+        '/MultaRegistrada': (context) => MultaRegistrada(),
         '/MapaMulta':(context) => const MapaMulta(),
         '/Noticias':(context) => const Noticias(),
         '/Clima':(context) => const Clima(),
