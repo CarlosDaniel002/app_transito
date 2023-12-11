@@ -1,19 +1,20 @@
 // ignore_for_file: file_names
 
 class Multa {
+  String id;
   String cedula = '';
   String placa = '';
   String motivo = '';
   String evidencia = '';
   String comentario = '';
-  String nota = '';
   late double latitud;
   late double longitud;
   late DateTime fecha;
-  late DateTime hora;
+ 
 
   // Constructor que inicializa las propiedades obligatorias
   Multa({
+    required this.id,
     required this.cedula,
     required this.placa,
     required this.motivo,
@@ -21,8 +22,6 @@ class Multa {
     required this.latitud,
     required this.longitud,
     required this.fecha,
-    required this.hora,
     required this.comentario,
-    required this.nota
   });
 }

@@ -25,7 +25,7 @@ class _loginState extends State<login> {
     try{
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: _email, password: _pass);
       print('Usuario Logeado: ${userCredential.user!.email}');
-      Navigator.of(context).pushNamed('/home');
+      Navigator.of(context).pushNamed('/MenuWidget');
     } catch(e){
       print("Error al Logearse el usuario: $e");
     }

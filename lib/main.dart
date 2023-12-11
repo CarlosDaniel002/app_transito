@@ -45,6 +45,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'App agente de tránsito de RD',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(0, 178, 227,0)),
       ),
@@ -63,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         '/Clima':(context) => const Clima(),
         '/Horoscopo':(context) => const Horoscopo(),
         '/AgregadorConductor':(context) => AgregadorConductor(),
-        '/MenuWidget':(context) => MenuWidget()
+        '/MenuWidget':(context) => MenuWidget(),
       },
     );
   }

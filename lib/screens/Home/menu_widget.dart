@@ -56,7 +56,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                       size: 24,
                     ),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('Login');
+                      Navigator.of(context).pushNamed('/Login');
                     },
                   ),
                 ),
@@ -122,21 +122,21 @@ class _MenuWidgetState extends State<MenuWidget> {
                         '',
                         FontAwesomeIcons.solidNewspaper,
                         'Noticias',
-                        buttonWidth: MediaQuery.of(context).size.width * 0.26,
+                        buttonWidth: MediaQuery.of(context).size.width * 0.23,
                       ),
                       buildMenuButton(
                         context,
                         '',
                         FontAwesomeIcons.cloudSun,
                         'Clima',
-                        buttonWidth: MediaQuery.of(context).size.width * 0.26,
+                        buttonWidth: MediaQuery.of(context).size.width * 0.23,
                       ),
                       buildMenuButton(
                         context,
                         '',
                         FontAwesomeIcons.centos,
                         'Horoscopo',
-                        buttonWidth: MediaQuery.of(context).size.width * 0.27,
+                        buttonWidth: MediaQuery.of(context).size.width * 0.23,
                       ),
                     ],
                   ),
@@ -157,7 +157,7 @@ class _MenuWidgetState extends State<MenuWidget> {
         width: buttonWidth,
         child: ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pushNamed("routeName");
+            Navigator.of(context).pushNamed("/$routeName");
           },
           style: ElevatedButton.styleFrom(
             primary: Colors.white,
