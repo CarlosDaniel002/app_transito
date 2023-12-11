@@ -2,6 +2,7 @@
 
 import 'package:app_transito/screens/Conductor/Agregarconductor.dart';
 import 'package:app_transito/screens/Home/menu_widget.dart';
+import 'package:app_transito/screens/Vehiculo/AgregarVehiculo.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 import 'package:app_transito/screens/Login/Login.dart';
@@ -65,6 +66,7 @@ class _MyAppState extends State<MyApp> {
         '/Horoscopo':(context) => const Horoscopo(),
         '/AgregadorConductor':(context) => AgregadorConductor(),
         '/MenuWidget':(context) => MenuWidget(),
+        '/AgregarVehiculo': (context) => AgregarVehiculo(),
       },
     );
   }
