@@ -76,12 +76,12 @@ class Home extends StatelessWidget {
               },
             ),
 
-            ListTile(
-              title: const Text('Agregar Conductor'),
-              onTap: () {
-                Navigator.of(context).pushNamed('/AgregadorConductor');
-              },
-            ),
+            // ListTile(
+            //   title: const Text('Agregar Conductor'),
+            //   onTap: () {
+            //     Navigator.of(context).pushNamed('/AgregadorConductor');
+            //   },
+            // ),
             ListTile(
               title: const Text('Sign out'),
               onTap: () {

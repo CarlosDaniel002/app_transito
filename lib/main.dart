@@ -1,20 +1,22 @@
 // ignore_for_file: prefer_const_constructors, duplicate_import
 
-import 'package:app_transito/screens/Agregarconductor.dart';
+import 'package:app_transito/screens/Conductor/Agregarconductor.dart';
+import 'package:app_transito/screens/Home/menu_widget.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
-import 'package:app_transito/screens/Login.dart';
-import 'package:app_transito/screens/Register.dart';
-import 'package:app_transito/screens/Home.dart';
-import 'package:app_transito/screens/TraficoDeMulta.dart';
-import 'package:app_transito/screens/ConsultaVehiculo.dart';
-import 'package:app_transito/screens/ConsultaConductor.dart';
-import 'package:app_transito/screens/AplicarMulta.dart';
-import 'package:app_transito/screens/MultaRegistrada.dart';
-import 'package:app_transito/screens/MapaMulta.dart';
-import 'package:app_transito/screens/Noticias.dart';
-import 'package:app_transito/screens/Clima.dart';
-import 'package:app_transito/screens/Horoscopo.dart';
-import 'package:app_transito/screens/Agregarconductor.dart';
+import 'package:app_transito/screens/Login/Login.dart';
+import 'package:app_transito/screens/Register/Register.dart';
+import 'package:app_transito/screens/Home/Home.dart';
+import 'package:app_transito/screens/Multa/TraficoDeMulta.dart';
+import 'package:app_transito/screens/Vehiculo/ConsultaVehiculo.dart';
+import 'package:app_transito/screens/Conductor/ConsultaConductor.dart';
+import 'package:app_transito/screens/Multa/AplicarMulta.dart';
+import 'package:app_transito/screens/Multa/MultaRegistrada.dart';
+import 'package:app_transito/screens/Multa/MapaMulta.dart';
+import 'package:app_transito/screens/Noticia/Noticias.dart';
+import 'package:app_transito/screens/Clima/Clima.dart';
+import 'package:app_transito/screens/Horoscopo/Horoscopo.dart';
+import 'package:app_transito/screens/Conductor/Agregarconductor.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -22,6 +24,11 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAppCheck.instance.activate(
+    webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+    androidProvider: AndroidProvider.debug,
+    appleProvider: AppleProvider.appAttest,
   );
   runApp(const MyApp());
 }
@@ -55,7 +62,8 @@ class _MyAppState extends State<MyApp> {
         '/Noticias':(context) => const Noticias(),
         '/Clima':(context) => const Clima(),
         '/Horoscopo':(context) => const Horoscopo(),
-        '/AgregadorConductor':(context) => AgregadorConductor()
+        '/AgregadorConductor':(context) => AgregadorConductor(),
+        '/MenuWidget':(context) => MenuWidget()
       },
     );
   }

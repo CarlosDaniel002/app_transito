@@ -13,7 +13,7 @@ final FirebaseStorage storage =FirebaseStorage.instance;
 
 
 //Funcion para subir imagen del conductor a Firebase Storage
-Future<bool> uploadConductorImage(File image) async {
+Future<String> uploadConductorImage(File image) async {
 
   final String namefile = image.path.split("/").last;
 
@@ -24,14 +24,14 @@ Future<bool> uploadConductorImage(File image) async {
 
   ConductorImagePath = url;
   if (snapshot.state == TaskState.success){
-    return true;
+    return url;
   }else {
-    return false;
+    return url;
   }
 }
 
 //Funcion para subir imagen de la evidencia a Firebase Storage
-Future<bool> uploadEvidenciaImage(File image) async {
+Future<String> uploadEvidenciaImage(File image) async {
 
   final String namefile = image.path.split("/").last;
   
@@ -43,8 +43,8 @@ Future<bool> uploadEvidenciaImage(File image) async {
   EvidenciaImagePath = url;
 
   if (snapshot.state == TaskState.success){
-    return true;
+    return url;
   }else {
-    return false;
+    return url;
   }
 }
